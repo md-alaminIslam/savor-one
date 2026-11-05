@@ -44,3 +44,18 @@ The Supabase JS SDK is pinned at 2.118.0 and loaded from esm.sh; the login pages
 - .github/workflows/pages.yml: Pages publication.
 
 Account data is protected by RLS. The static UI's JavaScript is publicly downloadable on GitHub Pages; it contains no company records or secrets. Business demo editing in the browser is not a production authorization boundary. Implement shared business storage and permissions before using confidential operational records.
+
+
+## Department Head routing (November 2026)
+
+Apply `supabase/routing.sql` after `setup.sql` for a new installation. This is already applied to the connected project.
+
+- Requisition, To-do, marketing, inventory, daily report and custom record forms offer a department and Active Head/Admin selector.
+- Save local draft preserves the existing browser-local workflow. Save & submit to Head stores an immutable copy in `work_submissions`; it appears in the recipient’s Inbox & sent. Existing local records can also be submitted.
+- An Active Admin sets shared Head WhatsApp numbers in Sharing settings. Assign the Department Head role through Manage user accounts. No phone numbers are assumed.
+- Optional WhatsApp buttons open a prepared message to the selected Head. The user must review and send it. Email shortcuts similarly open a draft. No automatic messages are sent.
+- Submitted copies are separate snapshots: later local edits are not automatically synchronized. Submit an updated copy when needed. The inbox loads the latest 100 accessible records; use Refresh for new data.
+- RLS permits reads only by the sender, selected recipient and Active Admins; recipients/Admins may change only review status. Employees cannot forge sender IDs, approve their own submission, edit contacts, or submit to inactive/non-manager recipients. The staff directory exposes only Active staff name, department, role, email and configured WhatsApp number.
+- Other module drafts, inventory, custom section definitions and local edit history remain browser-local. This release does not migrate prior local records automatically.
+
+Validation: JavaScript syntax checks, browser fixture tests for submission and WhatsApp draft construction, and rolled-back SQL permission tests for recipient visibility and forbidden access. No real messages were sent during tests.
